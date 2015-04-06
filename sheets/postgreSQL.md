@@ -16,3 +16,5 @@ You should now see the `postgres=#` prompt
 Type in `create database "your_user_name";`
 You should see `CREATE DATABASE`
 `\q` to exit
+
+##Commands##
