@@ -1,0 +1,1 @@
+SQL is a data definition and query language
