@@ -25,7 +25,7 @@ Primary Keys - used within a database to define the relationships between entiti
 
 ##**The primary key in the parent is the foreign key in the child**##
 
-Stored Procedures - Executeable code, generally stored in the database, allowing specific
+Stored Procedures - Executeable code, generally stored in the database, allowing specific operations to be conducted.
 
 ##Normalization##
 
