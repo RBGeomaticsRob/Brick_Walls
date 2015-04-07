@@ -59,10 +59,12 @@ property :old_id, Integer, key: true
 property :new_id, Integer, key: true
 ```
 Default value `property :age,     String, default: 30`
+
 it can also take a lamda `property :md5sum, String, default: lambda { |r, p| Digest::MD5.hexdigest(r.path.read) if r.path }`
+
 Limiting Access `property :email, String, accessor: :private`
 
-##Assciations##
+##Associations##
 
 Associations describe the relationships between Models and are defined in the model classes.
 
