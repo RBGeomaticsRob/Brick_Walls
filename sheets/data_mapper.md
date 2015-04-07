@@ -11,22 +11,27 @@ Ensure a database has been created in postgres before trying to make a connectio
 (in the server.rb or similar file before declaring the server class)
 
 *Optional, displays the log in the terminal*
-DataMapper::Logger.new($stdout, :debug)
+
+`DataMapper::Logger.new($stdout, :debug)`
 
 *Establish a Postgres connection*
+
 `DataMapper.setup(:default, 'postgres://localhost/database_name')`
 
 *Require in the models (ruby table descriptions)*
+
 `require './lib/user'`
 
 *Finalizing the connection, this checks the validity of the model and relationships and needs to be called before trying to access the models*
+
 `DataMapper.finalize`
 
 *Will build or extend the current schema to the model, but will not overwrite, to overwrite change to `auto_migrate!` but be careful as this will wipe the data each time if left.*
+
 `DataMapper.auto_upgrade!`
 
 ##Setup the Models##
-Table structures are called Models and can be set up as ruby classes in the lib directory, with the DataMapper::Resource module included.
+Table structures are called Models and can be set up as ruby classes in the lib directory, with the `DataMapper::Resource` module included.
 ```
 class User
   include DataMapper::Resource
@@ -53,6 +58,7 @@ The following are available as data types from the core library (can be extended
 
 Other settings
 Require a Field `property :name,     String, required: true`
+
 Composite Key - make a primary key from more than one property
 ```
 property :old_id, Integer, key: true
