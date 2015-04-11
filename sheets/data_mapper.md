@@ -11,21 +11,27 @@ Ensure a database has been created in postgres before trying to make a connectio
 (in the server.rb or similar file before declaring the server class)
 
 *Optional, displays the log in the terminal*
-DataMapper::Logger.new($stdout, :debug)
+
+`DataMapper::Logger.new($stdout, :debug)`
 
 *Establish a Postgres connection*
+
 `DataMapper.setup(:default, 'postgres://localhost/database_name')`
 
 *Require in the models (ruby table descriptions)*
+
 `require './lib/user'`
 
 *Finalizing the connection, this checks the validity of the model and relationships and needs to be called before trying to access the models*
+
 `DataMapper.finalize`
 
 *Will build or extend the current schema to the model, but will not overwrite, to overwrite change to `auto_migrate!` but be careful as this will wipe the data each time if left.*
+
 `DataMapper.auto_upgrade!`
 
 ##Setup the Models##
+
 Table structures are called Models and can be set up as ruby classes in the lib directory, with the DataMapper::Resource module included.
 ```ruby
 class User
@@ -53,16 +59,19 @@ The following are available as data types from the core library (can be extended
 
 Other settings
 Require a Field `property :name,     String, required: true`
+
 Composite Key - make a primary key from more than one property
 ```ruby
 property :old_id, Integer, key: true
 property :new_id, Integer, key: true
 ```
 Default value `property :age,     String, default: 30`
+
 it can also take a lamda `property :md5sum, String, default: lambda { |r, p| Digest::MD5.hexdigest(r.path.read) if r.path }`
+
 Limiting Access `property :email, String, accessor: :private`
 
-##Assciations##
+##Associations##
 
 Associations describe the relationships between Models and are defined in the model classes.
 
