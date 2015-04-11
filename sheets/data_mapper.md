@@ -27,7 +27,7 @@ DataMapper::Logger.new($stdout, :debug)
 
 ##Setup the Models##
 Table structures are called Models and can be set up as ruby classes in the lib directory, with the DataMapper::Resource module included.
-```
+```ruby
 class User
   include DataMapper::Resource
 
@@ -54,7 +54,7 @@ The following are available as data types from the core library (can be extended
 Other settings
 Require a Field `property :name,     String, required: true`
 Composite Key - make a primary key from more than one property
-```
+```ruby
 property :old_id, Integer, key: true
 property :new_id, Integer, key: true
 ```
@@ -69,7 +69,7 @@ Associations describe the relationships between Models and are defined in the mo
 ###One to Many###
 The example below re-opens these classes but they would normally be declared directly in the model class.
 
-```
+```ruby
 class User
   has n, :support_calls
 end
@@ -83,7 +83,7 @@ In this example user has a 1 to many relationship with support calls. A user can
 ###One to Many Through###
 This allows you to create a 'link table' to allow a one to many relation ship from a class to the link table and in turn by associating two classes to the 'link table' hence establishing a many to many relationship in a Model.
 
-```
+```ruby
 class Photo
   include DataMapper::Resource
     property :id, Serial
@@ -110,7 +110,7 @@ class Tag
 
 ###Many to Many###
 Uses an anonymous resource to link two models together in a many-to-many relationship.
-```
+```ruby
 class Article
   include DataMapper::Resource
 
@@ -128,8 +128,8 @@ class Category
 end
 ```
 
-##Adding records to a table##
-```
+##Adding records to a table###
+```ruby
 User.create(name: 'Holly',
             email: 'test@mail.com',
             age: 35,
@@ -138,3 +138,46 @@ User.create(name: 'Holly',
 
 *Note the id field will self generate with the next number in series as it was set to 'Serial'.*
 
+###Extracting Datamapper setup into a helper###
+
+It may be useful to extract the datamapper configuration into a helper to add to the readability of code in your sinatra server file and to allow automation of tasks with rake. This can be done as follows, this asumes that you extract to a file called `data_mapper_setup.rb` in the root of your app.
+
+In your sinatra server file
+
+```ruby
+require_relative 'data_mapper_setup'
+```
+
+In data_mapper_setup.rb
+
+```ruby
+# This line assumes you have set ENV['RACK_ENV'] = 'test' in your rspec(spec_helper.rb) or cuke(env.rb).
+# And that you have appended your database names is _test and _development for test and development versions.
+env = ENV['RACK_ENV'] || development
+
+DataMapper.setup(:default, "postgres://localhost/your_database_name_#{env}")
+# require all your model files here
+require '.app/models/user'
+require '.app/models/items'
+DataMapper.finalize
+```
+
+You will have noticed that auto_upgrade! or auto_migrate! have not been included in this helper, that is because we don't necessarily want to update the schema everytime we run the app, as this often will not change. We wan't to be able to update the schema as we are developing though, so we can add this functionality in the Rakefile as follows:
+
+```rake
+require 'data_mapper'
+
+task :auto_upgrade do
+  require './app/data_mapper_setup'
+  DataMapper.auto_upgrade!
+  puts 'Auto-upgrade complete (no data loss)'
+end
+
+task :auto_migrate do
+  require './app/data_mapper_setup'
+  DataMapper.auto_upgrade!
+  puts 'Auto-upgrade complete (data could have been lost)'
+end
+```
+
+Now you can run `rake auto_upgrade` to do additional upgrade to the schema from the models or `rake auto_migrate` to do destructive updates to the schema from the models.
