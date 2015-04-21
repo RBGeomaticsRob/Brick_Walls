@@ -26,3 +26,23 @@ Capybara.register_driver :chrome do |app|
 end
 Capybara.javascript_driver = :chrome
 ```
+
+To change to webkit (for true headless testing):
+
+`brew install qt`
+
+There is a good tutorial for this [here](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
+
+Add `capybara-webkit` to the gem file
+
+In cucumber env setting add `require 'capybara-webkit'` insert the following after requiring 'capybara' and before giving capybara the app.
+
+```ruby
+Capybara.javascript_driver = :webkit
+```
+
+
+[Source Link](http://collectiveidea.com/blog/archives/2011/09/27/use-chrome-with-cucumber-capybara/)
+[Installing Capybara Webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
+[Capybara Webkit](https://github.com/thoughtbot/capybara-webkit)
+[Qt download required for Capybara Webkit]()
