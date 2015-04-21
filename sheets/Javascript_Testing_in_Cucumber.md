@@ -29,6 +29,8 @@ Capybara.javascript_driver = :chrome
 
 To change to webkit (for true headless testing):
 
+You need to ensure you have Xcode and the latest version of 'Command Line Tools' installed.
+
 `brew install qt`
 
 There is a good tutorial for this [here](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
