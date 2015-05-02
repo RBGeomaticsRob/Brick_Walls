@@ -43,3 +43,15 @@ We have declared all the html to be related to the 'gemStore' app with ng-app di
 
 After doing this all attributes of the controller are able to be accessed in the code using `{{store.product.name}}` notation to reach inside the objects in the controller.
 
+##Directives##
+
+Angular has a bunch of built in directives for controlling DOM elements and controller behaviour.
+
+###ng-show and ng-hide###
+Are set equal to a boolean variable to hide or show a DOM element. i.e. `ng-show = "store.product.available"`
+
+###ng-repeat###
+Will loop through all items in an array variable and create multiple elements inside a DOM structure.
+i.e. `ng-repeat= "product in store.products"
+
+
