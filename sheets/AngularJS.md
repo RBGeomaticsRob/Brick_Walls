@@ -1,5 +1,7 @@
 #Angular#
 
+WOrking through the code school angular code, my notes and code samples.
+
 #Module and Controller#
 
 Angulars top level container is a module.

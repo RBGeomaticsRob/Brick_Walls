@@ -4,7 +4,11 @@ A place to store learnt methods and facts for future lookup, created from the st
 
 Feel free to make contributions or corrections via a pull request. This is updateded regularly so be sure to fetch and merge before the pull request, many thanks.
 
+- [Angular JS](/sheets/AngularJS.md)
 - [Data Mapper](/sheets/data_mapper.md)
+- [Javascript](/sheets/javascript.md)
+- [Javascript Testing in Cucumber](/sheets/Javascript_Testing_in_Cucumber.md)
+- [Node.js](/sheets/node.md)
 - [Postgres](/sheets/postgreSQL.md)
 - [Relational Databases](/sheets/relational_databases.md)
 - [Sinatra](/sheets/sinatra.md)
