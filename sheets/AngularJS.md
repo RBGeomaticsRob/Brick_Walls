@@ -359,3 +359,24 @@ products.js
 })();
 
 ```
+
+##Services##
+
+Services are libraries that are fetched by the Angular 'Injector' to do certain tasks. These will become dependencies on the controller and hence we can use dependency injection to pass these in for use. The syntax is slightly different here, the controller function is passed inside an array with the arguments to function also included as strings in the array before the function, if there are multiple dependencies, these should be added as string and arguments in the same order. The reason for adding in this eay is that it avoids problems with renaming during minification.
+
+A typical service injection for using the http service to call on restfull apis for data might be:
+
+app.js
+```js
+app.controller('StoreController', ['$http', function($http){
+  // assigning this to store means it is possible to access it inside the success callback
+  // otherwise this would refer to the http.get object
+  var store = this;
+  // assigning an empty array to products means that it will not cause undefined errors before
+  // the success callback with the data has been recieved.
+  store.products = [];
+  $http.get('/store-products.json').success(function(data){
+    store.products = data;
+  });
+}]);
+```
