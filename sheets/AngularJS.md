@@ -52,6 +52,61 @@ Are set equal to a boolean variable to hide or show a DOM element. i.e. `ng-show
 
 ###ng-repeat###
 Will loop through all items in an array variable and create multiple elements inside a DOM structure.
-i.e. `ng-repeat= "product in store.products"
+i.e. `ng-repeat= "product in store.products"`
 
+###ng-src###
+Allows an element to be loaded in as a source location. Assuminging there is an array of image paths in product the following would work `<img ng-src="{{product.images[0]}}">`
 
+##Expression Filters##
+
+It is possible to filter how the data is displayed using filters, you may want to format a date or a currency or show so many characters or only show so many items in an ng-repeat, filters work by piping the data into a filter in the expression.
+
+For example
+```html
+<p>{{product.price | currency}}</p>
+```
+
+###2 way data binding###
+
+We can use ng-model in the front end to provide two way data binding in this case to show a preview of a review on the screen before using our controller to commit this review on submit
+
+index.html
+```html
+<!--  Review Form -->
+<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReview(product)">
+
+  <!--  Live Preview -->
+  <blockquote>
+    <strong>{{reviewCtrl.review.stars}} Stars</strong>
+    {{reviewCtrl.review.body}}
+    <cite class="clearfix">—{{reviewCtrl.review.author}}</cite>
+  </blockquote>
+
+  <!--  Review Form -->
+  <h4>Submit a Review</h4>
+  <fieldset class="form-group">
+    <select ng-model="reviewCtrl.review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars">
+      <option value="">Rate the Product</option>
+    </select>
+  </fieldset>
+  <fieldset class="form-group">
+    <textarea ng-model="reviewCtrl.review.body" class="form-control" placeholder="Write a short review of the product..." title="Review"></textarea>
+  </fieldset>
+  <fieldset class="form-group">
+    <input ng-model="reviewCtrl.review.author" type="email" class="form-control" placeholder="jimmyDean@example.org" title="Email" />
+  </fieldset>
+  <fieldset class="form-group">
+    <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+  </fieldset>
+</form>
+```
+app.js
+```js
+  app.controller('ReviewController', function(){
+    this.review = {};
+    this.addReview = function(product){
+      product.reviews.push(this.review);
+      this.review = {};
+    };
+  });
+```
