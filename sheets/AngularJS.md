@@ -191,3 +191,62 @@ app.directive("productSpecs", function(){
   };
 });
 ```
+
+###Directives with Controllers###
+
+Where a directive template is wanted and a controller is already an attribute in that tag, the controller can be included in the directive and the alias set also in the directive.
+
+index.html
+```html
+<product-tabs></product-tabs>
+```
+
+product-tabs.html
+```html
+<section>
+  <ul class="nav nav-pills">
+    <li ng-class="{ active:tab.isSet(1) }">
+      <a href ng-click="tab.setTab(1)">Description</a>
+    </li>
+    <li ng-class="{ active:tab.isSet(2) }">
+      <a href ng-click="tab.setTab(2)">Specs</a>
+    </li>
+    <li ng-class="{ active:tab.isSet(3) }">
+      <a href ng-click="tab.setTab(3)">Reviews</a>
+    </li>
+  </ul>
+
+  <!--  Description Tab's Content  -->
+  <div ng-show="tab.isSet(1)" ng-include="'product-description.html'">
+  </div>
+
+  <!--  Spec Tab's Content  -->
+  <div product-specs ng-show="tab.isSet(2)"></div>
+
+  <!--  Review Tab's Content  -->
+  <product-reviews ng-show="tab.isSet(3)"></product-reviews>
+</section>
+```
+
+app.js
+```js
+app.directive("productTabs", function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'product-tabs.html',
+    controller: function(){
+      this.tab = 1;
+
+      this.isSet = function(checkTab) {
+        return this.tab === checkTab;
+      };
+
+      this.setTab = function(setTab) {
+        this.tab = setTab;
+      };
+    },
+    controllerAs: 'tab'
+  };
+});
+```
+
