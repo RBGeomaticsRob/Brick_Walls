@@ -110,3 +110,25 @@ app.js
     };
   });
 ```
+
+##Form Validations##
+
+Turn off default HTML validations `novalidate` in the form tag.
+
+Mark the fields required for validation in their tags with `required`
+
+We can print it to screen `{{reviewFrom.$valid}}`
+
+We can stop the form from being called by adding it to other code in ng-submit, i.e. `ng-submit = "reviewForm.$valid && reviewCtrl.addReview(product)"` reviewForm is the name attribute of the form.
+
+For forms that are in the process of being filled in but not valid angular assigns them the class `ng-dirty` for anything currently being filled in and `ng-invalid` for anything not valid. These can then be styled using css to give them, for example, a different border colour to help inform the user.
+
+```css
+.ng-invalid.ng-dirty {
+border-color: red;
+}
+
+.ng-valid.ng-dirty {
+border-color: green;
+}
+```
