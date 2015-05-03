@@ -159,4 +159,35 @@ app.directive("productDescription", function() {
   };
 });
 ```
+###Attribute Directives###
+Attribute directives allow you to add html inside current tag structures. This can be used for extending the current html, for example for a tool-tip
 
+index.html
+```html
+<div product-specs ng-show="tab.isSet(2)">
+</div>
+```
+
+product-specs.html
+```html
+<h4>Specs</h4>
+<ul class="list-unstyled">
+  <li>
+    <strong>Shine</strong>
+    : {{product.shine}}</li>
+  <li>
+    <strong>Faces</strong>
+    : {{product.faces}}</li>
+  <li>
+</ul>
+```
+
+app.js
+```js
+app.directive("productSpecs", function(){
+  return {
+    restrict: 'A',
+    templateUrl: "product-specs.html"
+  };
+});
+```
