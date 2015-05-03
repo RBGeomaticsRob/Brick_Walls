@@ -132,3 +132,31 @@ border-color: red;
 border-color: green;
 }
 ```
+
+##Custom Directives##
+
+###Element Directives###
+Element directives allow you to extract template HTML to separate files and call them using custom directive tags, these tags can still also include other ng- directives.
+
+index.html
+```html
+<product-description ng-show="tab.isSet(1)">
+</product-description>
+```
+product-descriptions.html
+```html
+<div>
+  <h4>Description</h4>
+  <blockquote>{{product.description}}</blockquote>
+</div>
+```
+app.js
+```js
+app.directive("productDescription", function() {
+  return {
+    restrict: 'E',
+    templateUrl: "product-description.html"
+  };
+});
+```
+
